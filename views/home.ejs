@@ -1,0 +1,19 @@
+
+<%- include("partials/header"); -%>
+    <h1>Home</h1>
+    <p> <%= startingContent %> </p>
+
+
+  <%  workouts.forEach(function(workout){ %>
+
+    <h1><%=workout.title%></h1>
+    <p>
+    <%=workout.content.substring(0, 100) + " ..."%>
+    <a href="/workouts/<%=workout._id%>">Read More</a>
+    </p>
+
+
+    <% }) %>
+
+
+<%- include("partials/footer"); -%>
