@@ -16,8 +16,8 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://127.0.0.1:27017/checkinDB", {useNewUrlParser: true});
 
-// let workouts = [];
 
+// Workouts Schema and Model
 const workoutSchema = {
   title: String,
   content: String
@@ -25,6 +25,23 @@ const workoutSchema = {
 
 const Workout = mongoose.model("Workout", workoutSchema);
 
+// Nutrition Schema and Model
+const nutritionSchema = {
+  title: String,
+  content: String
+};
+
+const Nutrition = mongoose.model("Nutrition", nutritionSchema);
+
+// Steps Schema and Model
+const stepsSchema = {
+  title: String,
+  content: String
+};
+
+const Steps = mongoose.model("Steps", stepsSchema);
+
+// app.get functions
 app.get("/", function(req, res){
 
   Workout.find().then(workouts =>{
@@ -47,31 +64,23 @@ app.get("/compose", function(req, res){
   res.render("compose");
 });
 
+
+// app.post functions
 app.post("/compose", function(req, res){
   const workout = new Workout({
     title: req.body.workoutTitle,
     content: req.body.workoutBody
   });
-
   workout.save().then(() => {
- 
     console.log('Post added to DB.');
- 
     res.redirect('/');
- 
   })
- 
   .catch(err => {
- 
     res.status(400).send("Unable to save post to database.");
- 
   });
- 
- 
 });
 
 app.get("/workouts/:workoutName", function(req, res){
-
   const requestedWorkoutId = req.params.workoutName;
 
   Workout.findOne({_id:requestedWorkoutId})
@@ -84,8 +93,6 @@ app.get("/workouts/:workoutName", function(req, res){
     .catch(function(err){
       console.log(err);
     })
- 
- 
 });
 
 app.listen(3000, function() {
