@@ -76,12 +76,12 @@ app.get("/compose", function(req, res){
   res.render("compose");
 });
 
-app.get("/compose", function(req, res){
-  res.render("compose");
+app.get("/composenutrition", function(req, res){
+  res.render("composenutrition");
 });
 
-app.get("/compose", function(req, res){
-  res.render("compose");
+app.get("/composesteps", function(req, res){
+  res.render("composesteps");
 });
 
 // app.post functions
@@ -99,6 +99,35 @@ app.post("/compose", function(req, res){
   });
 });
 
+app.post("/composenutrition", function(req, res){
+  const nutrition = new Nutrition({
+    title: req.body.nutritionTitle,
+    content: req.body.nutritionBody
+  });
+  nutrition.save().then(() => {
+    console.log('Post added to DB.');
+    res.redirect('/nutrition');
+  })
+  .catch(err => {
+    res.status(400).send("Unable to save post to database.");
+  });
+});
+
+app.post("/composesteps", function(req, res){
+  const steps = new Steps({
+    title: req.body.stepsTitle,
+    content: req.body.stepsBody
+  });
+  steps.save().then(() => {
+    console.log('Post added to DB.');
+    res.redirect('/steps');
+  })
+  .catch(err => {
+    res.status(400).send("Unable to save post to database.");
+  });
+});
+
+// app.get for "Read More" link
 app.get("/workouts/:workoutName", function(req, res){
   const requestedWorkoutId = req.params.workoutName;
 
@@ -107,6 +136,36 @@ app.get("/workouts/:workoutName", function(req, res){
     res.render("workout", {
             title: workout.title,
             content: workout.content
+          });
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+});
+
+app.get("/nutritions/:nutritionName", function(req, res){
+  const requestedNutritionId = req.params.nutritionName;
+
+  Nutrition.findOne({_id:requestedNutritionId})
+  .then(function (workout) {
+    res.render("nutritionentry", {
+            title: nutritionentry.title,
+            content: nutritionentry.content
+          });
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+});
+
+app.get("/steps/:stepsName", function(req, res){
+  const requestedStepsId = req.params.stepsName;
+
+  Steps.findOne({_id:requestedStepsId})
+  .then(function (workout) {
+    res.render("stepsentry", {
+            title: stepsentry.title,
+            content: stepsentry.content
           });
     })
     .catch(function(err){

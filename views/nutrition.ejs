@@ -1,4 +1,20 @@
+
 <%- include("partials/header"); -%>
     <h1>Nutrition</h1>
     <p> <%= nutritionContent %> </p>
+    <a href="/composenutrition">Add New</a>
+
+
+  <%  nutritions.forEach(function(nutrition){ %>
+
+    <h1><%=nutrition.title%></h1>
+    <p>
+    <%=nutrition.content.substring(0, 100) + " ..."%>
+    <a href="/nutritions/<%=nutrition._id%>">Read More</a>
+    </p>
+
+
+    <% }) %>
+
+
 <%- include("partials/footer"); -%>

@@ -1,4 +1,20 @@
+
 <%- include("partials/header"); -%>
     <h1>Daily Step Count</h1>
     <p> <%= stepsContent %> </p>
+    <a href="/composesteps">Add New</a>
+
+
+  <%  steps.forEach(function(steps){ %>
+
+    <h1><%=steps.title%></h1>
+    <p>
+    <%=steps.content.substring(0, 100) + " ..."%>
+    <a href="/steps/<%=steps._id%>">Read More</a>
+    </p>
+
+
+    <% }) %>
+
+
 <%- include("partials/footer"); -%>
