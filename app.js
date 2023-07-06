@@ -53,17 +53,36 @@ app.get("/", function(req, res){
 });
 
 app.get("/nutrition", function(req, res){
-  res.render("nutrition", {nutritionContent: nutritionContent});
+  
+  Nutrition.find().then(nutritions => {
+    res.render("nutrition", {
+      nutritionContent: nutritionContent,
+      nutritions: nutritions
+    });
+  });
 });
 
 app.get("/steps", function(req, res){
-  res.render("steps", {stepsContent: stepsContent});
+
+  Steps.find().then(steps => {
+    res.render("steps", {
+      stepsContent: stepsContent,
+      steps: steps
+    });
+  });
 });
 
 app.get("/compose", function(req, res){
   res.render("compose");
 });
 
+app.get("/compose", function(req, res){
+  res.render("compose");
+});
+
+app.get("/compose", function(req, res){
+  res.render("compose");
+});
 
 // app.post functions
 app.post("/compose", function(req, res){
