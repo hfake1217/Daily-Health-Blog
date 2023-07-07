@@ -41,6 +41,8 @@ const stepsSchema = {
 
 const Steps = mongoose.model("Steps", stepsSchema);
 
+
+
 // app.get functions
 app.get("/", function(req, res){
 
@@ -83,6 +85,8 @@ app.get("/composenutrition", function(req, res){
 app.get("/composesteps", function(req, res){
   res.render("composesteps");
 });
+
+
 
 // app.post functions
 app.post("/compose", function(req, res){
@@ -127,6 +131,8 @@ app.post("/composesteps", function(req, res){
   });
 });
 
+
+
 // app.get for "Read More" link
 app.get("/workouts/:workoutName", function(req, res){
   const requestedWorkoutId = req.params.workoutName;
@@ -147,10 +153,10 @@ app.get("/nutritions/:nutritionName", function(req, res){
   const requestedNutritionId = req.params.nutritionName;
 
   Nutrition.findOne({_id:requestedNutritionId})
-  .then(function (workout) {
+  .then(function (nutrition) {
     res.render("nutritionentry", {
-            title: nutritionentry.title,
-            content: nutritionentry.content
+            title: nutrition.title,
+            content: nutrition.content
           });
     })
     .catch(function(err){
@@ -162,10 +168,10 @@ app.get("/steps/:stepsName", function(req, res){
   const requestedStepsId = req.params.stepsName;
 
   Steps.findOne({_id:requestedStepsId})
-  .then(function (workout) {
+  .then(function (steps) {
     res.render("stepsentry", {
-            title: stepsentry.title,
-            content: stepsentry.content
+            title: steps.title,
+            content: steps.content
           });
     })
     .catch(function(err){
